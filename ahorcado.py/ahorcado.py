@@ -49,15 +49,39 @@ IMÁGENES_AHORCADO = ['''
   /|\  |
   / \  |
        |
- =========''']
+ =========''','''
+   +----+
+   |    |
+  [O    |
+  /|\   |
+  / \   |
+        |
+ ==========''', '''
+   +----+
+   |    |
+  [O]   |
+  /|\   |
+  / \   |
+        |
+ ==========''']
 
-palabras = 'hormiga babuino tejon murcielago oso castor camello gato almeja cobra pantera coyote cuervo ciervo perro burro pato aguila huron zorro rana cabra ganso halcon leon lagarto llama topo mono alce raton mula salamandra nutria buho panda loro paloma piton conejo carnero rata cuervo rinoceronte salmon foca tiburon oveja mofeta perezoso serpiente araña cigüeña cisne tigre sapo trucha pavo tortuga comadreja ballena lobo wombat cebra'.split()
+palabras = {'Colores':'rojo naranja amarillo verde azul añil violeta blanco negro marron'.split(),
+'Formas':'cuadrado triangulo rectangulo circulo elipse rombo trapezoide chevron pentagono hexagono heptagono octogono'.split(),
+'Frutas':'manzana naranja limon lima pera sandia uva pomelo cereza banana melon mango fresa tomate'.split(),
+'Animales':'murcielago oso castor gato pantera cangrejo ciervo perro burro pato aguila pez rana cabra sanguijuela leon lagarto mono alce raton nutria buho panda piton conejo rata tiburon oveja mofeta calamar tigre pavo tortuga comadreja ballena lobo wombat cebra'.split()}
+
+""" palabras = 'hormiga babuino tejon murcielago oso castor camello gato almeja cobra pantera coyote cuervo ciervo perro burro pato aguila huron zorro rana cabra ganso halcon leon lagarto llama topo mono alce raton mula salamandra nutria buho panda loro paloma piton conejo carnero rata cuervo rinoceronte salmon foca tiburon oveja mofeta perezoso serpiente araña cigüeña cisne tigre sapo trucha pavo tortuga comadreja ballena lobo wombat cebra'.split()"""
+# palabras = palabras = 'rojo naranja amarillo verde azul añil violeta blanco negro marron'.split()
+# palabras = 'cuadrado triangulo rectangulo circulo elipse rombo trapezoide chevron pentagono hexagono heptagono octogono'.split()
+# palabras = 'manzana naranja limon lima pera sandia uva pomelo cereza banana melon mango fresa tomate'.split()
 
 
 ############ FUNCIONES ####################
-def obtener_palabra_al_azar(lista_de_palabras):
-      obtener_indice = random.randint(0, len(lista_de_palabras) - 1)
-      return lista_de_palabras[obtener_indice]
+def obtener_palabra_al_azar(diccionario_de_palabras):
+      clave_de_palabras = random.choice(list(diccionario_de_palabras.keys()))
+      indice_de_palabra = random.randint(0, len(diccionario_de_palabras[clave_de_palabras]) - 1)
+      return [diccionario_de_palabras[clave_de_palabras][indice_de_palabra], clave_de_palabras]
+      
 
 def mostrar_tablero(IMÁGENES_AHORCADO, letras_incorrectas, letras_correctas, palabra_secreta):
       print(IMÁGENES_AHORCADO[len(letras_incorrectas)])
@@ -101,10 +125,11 @@ def jugar_de_nuevo():
 print('A H O R C A D O')
 letras_incorrectas = ''
 letras_correctas = ''
-palabra_secreta = obtener_palabra_al_azar(palabras)
+palabra_secreta, clave_secreta = obtener_palabra_al_azar(palabras)
 juego_terminado = False
 
 while True:
+      print(f"La palabra secreta pertenece al conjunto: {clave_secreta}")
       mostrar_tablero(IMÁGENES_AHORCADO, letras_incorrectas, letras_correctas, palabra_secreta)
 
       intento = obtener_intento(letras_incorrectas + letras_correctas)
@@ -133,6 +158,6 @@ while True:
                   letras_incorrectas = ""
                   letras_correctas = ""
                   juego_terminado = False
-                  palabra_secreta = obtener_palabra_al_azar(palabras)
+                  palabra_secreta, clave_secreta = obtener_palabra_al_azar(palabras)
             else:
                   break
